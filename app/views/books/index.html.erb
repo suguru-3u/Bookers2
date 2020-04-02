@@ -2,14 +2,14 @@
 <table>
   <tbody>
     <tr><%= attachment_image_tag @user,:profile_image_id, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></tr>
-    <tr><td>name</td><td><%= @user.name %></td></tr>
-    <tr><td>introduction</td><td><%= @user.introduction %></td></tr>
+    <tr><td>name</td><td><%= current_user.name %></td></tr>
+    <tr><td>introduction</td><td><%= current_user.introduction %></td></tr>
   </tbody>
 </table>
   <%= link_to "edit", edit_user_path(@user) %>
 
 <h2>New York</h2>
-<%= form_for(@book,url:book_path(@books)) do |f| %>
+<%= form_for(@book,url:books_path) do |f| %>
   <div class="field">
     <%= f.label :Title %><br />
     <%= f.text_field :title %>
@@ -28,15 +28,13 @@
 <h2>Book detail</h2>
 <table>
   <tbody>
+    <% @books.each do |books| %>
+    <tr><td></td><td>Title</td><td>Opinion</td></tr>
     <tr>
-      <td><%= attachment_image_tag @user,:profile_image_id, :fill, 20, 20, format: 'jpeg', fallback: "no_image.jpg" %><br>
-        <%= link_to @user.name,user_path(@user) %><td>
-      <td><%= @books.title %></td>
-      <td><%= @books.body %></td>
-      <%if @user.id == current_user.id %>
-      <td><%= link_to 'Edit', edit_book_path(@books.id)%></td>
-      <td>destroy</td>
-      <% end %>
+      <td><%= attachment_image_tag @user,:profile_image_id, :fill, 20, 20, format: 'jpeg', fallback: "no_image.jpg" %><td>
+      <td><%= link_to books.title,book_path(books) %></td>
+      <td><%= books.body %></td>
     </tr>
+    <% end %>
   </tbody>
 </table>
