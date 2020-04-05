@@ -5,45 +5,20 @@
   </div>
 <% end %>
 <div class='row'>
- <div class="col-md-3">
-   <h2>User info</h2>
-   <table>
-     <tbody>
-       <tr><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></tr>
-       <tr><td>name</td><td><%= @user.name %></td></tr>
-       <tr><td>introduction</td><td><%= @user.introduction %></td></tr>
-     </tbody>
-   </table>
-   <%= link_to "edit", edit_user_path(@user) %>
+  <%= render 'layouts/new' %>
 
-   <h2>New York</h2>
-   <%= form_for(@book,url:books_path(@book)) do |f| %>
-   <div class="field">
-     <%= f.label :Title %><br />
-     <%= f.text_field :title %>
-   </div>
-
-   <div class="field">
-     <%= f.label :option %><br />
-     <%= f.text_area :body %>
-   </div>
-
-   <div class="actions">
-     <%= f.submit "Create Book" %>
-   </div>
-   <% end %>
- </div>
-
-    <div class="col-md-9">
-      <h2>Book detail</h2>
-      <table>
+    <div class="col-xs-9">
+      <h2>Books</h2>
+      <table class="table">
+        <thead>
+          <tr><th></th><th>Title</th><th>Opnion</th></tr>
+        </thead>
         <tbody>
-          <% @books.each do |books| %>
-          <tr><td></td><td>Title</td><td>Opnion</td></tr>
+          <% @books.each do |book| %>
           <tr>
-            <td><%= attachment_image_tag @user,:profile_image_id, :fill, 30, 30, format: 'jpeg', fallback: "no_image.jpg" %></td>
-            <td><%= link_to books.title,book_path(books.id) %></td>
-            <td><%= books.body %></td>
+            <td><%= attachment_image_tag @user, :profile_image, :fill, 30, 30, format: 'jpeg', fallback: "no_image.jpg"%></td>
+            <td><%= link_to book.title,book_path(book) %></td>
+            <td><%= book.body %></td>
           </tr>
           <% end %>
         </tbody>
